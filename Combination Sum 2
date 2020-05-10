@@ -1,0 +1,100 @@
+/*
+Example:
+Input:
+2
+7
+10 1 2 7 6 1 5
+8
+5
+8 1 8 6 8
+12
+
+Output:
+(1 1 6)(1 2 5)(1 7)(2 6)
+Empty
+*/
+
+
+#include<bits/stdc++.h>
+#define ll long long int
+#define mod 1000000007
+#define mp make_pair
+#define pb push_back
+#define eb emplace_back
+#define boast ios::sync_with_stdio(0); cin.tie(0);cout.tie(0);
+#define vec vector<int> 
+#define f first
+#define s second
+using namespace std;
+set<vector<int>>v;
+vector<int >v1;
+int n;
+bool isdistinct(vector <int >k){
+    int cnt=0;
+    int x=k[0];
+    for(int i=0;i<k.size();i++){
+        if(k[i]==x)cnt++;
+    }if(cnt==k.size()){
+        return false;
+    }return true;
+}
+void combsum(int a[],int i,int sum){
+    if(sum<0)return;
+    if(sum==0){
+        sort(v1.begin(),v1.end());
+        v.insert(v1);
+        return ;
+    }
+    while(sum-a[i]>=0&&i<n){
+        v1.pb(a[i]);
+        combsum(a,i+1,sum-a[i]);
+        //i++;
+        v1.pop_back();
+        i++;
+        //combsum(a,i+1,sum,csum);
+    }
+}
+int main(){
+//	int n=54321;
+//	cout<<floor(log10(n))+1;
+   
+   ll t;
+   cin>>t;
+   while(t--){
+       
+       cin>>n;
+       int a[n];
+       map<ll,ll>mp;
+       for(int i=0;i<n;i++){
+           cin>>a[i];
+       }
+       int sum;
+       cin>>sum;
+       sort(a,a+n);
+       v.clear();
+       v1.clear();
+       combsum(a,0,sum);
+       if(v.size()==0){
+           cout<<"Empty\n";
+           continue;
+       }
+       for(auto i:v){
+           cout<<"(";
+           for(int j=0;j<(int)i.size();j++){
+               if(j<(int)i.size()-1)
+               cout<<i[j]<<" ";
+               else cout<<i[j];
+           }
+           cout<<")";
+       }
+       cout<<endl;
+   }
+}
+/*
+1.Brute Force 
+2.check corner cases like 0,1,2   n-2,n-1,n
+3.optimize efficient datastruce
+4.Searching Binary search
+5.formula
+6.make functions
+*/
