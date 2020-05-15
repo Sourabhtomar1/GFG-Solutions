@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+#define ll long long int
+#define mod 1000000007
+#define mp make_pair
+#define pb push_back
+#define eb emplace_back
+#define boast ios::sync_with_stdio(0); cin.tie(0);cout.tie(0);
+#define vec vector<int> 
+#define f first
+#include<bits/stdc++.h>
+using namespace std;
+bool comp(const pair<int,pair<int,int>>&a,pair<int,pair<int,int>>&b)
+{
+    return a.second.second>b.second.second;
+}
+int main()
+ {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int n;
+	    cin>>n;
+	    vector<pair<int,pair<int,int>>> v;
+	    int n1=n;
+	    int id,dead,profit;
+	    while(n1--)
+	    {
+	        cin>>id>>dead>>profit;
+	        v.push_back(make_pair(id,make_pair(dead,profit)));
+	    }
+	    sort(v.begin(),v.end(),comp);
+	    bool slot[n];int result[n];
+	    memset(slot,false,sizeof(slot));
+	    int pro_earn=0;
+	    for(int i=0;i<n;i++)
+	    {
+	        for(int j=min(n,v[i].second.first)-1;j>=0;j--)
+	        {
+	            if(slot[j]==false)
+	            {
+	                slot[j]=true;
+	                pro_earn+=v[i].second.second;
+	                break;
+	            }
+	        }
+	    }
+	    int c=0;
+	    for(int i=0;i<n;i++)
+	    {
+	        if(slot[i])
+	            {
+	                c++;
+	       
+	            }
+	    }
+	    cout<<c<<" "<<pro_earn<<"\n";
+	}
+	return 0;
+}
+/*
+1.Brute Force 
+2.check corner cases like 0,1,2   n-2,n-1,n
+3.optimize efficient datastruce
+4.Searching Binary search
+5.formula
+6.make functions
+*/
