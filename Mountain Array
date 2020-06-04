@@ -1,0 +1,29 @@
+vector<bool> processQueries(int a[], int n, vector<pair<int, int>> &queries,int q) {
+    // code here
+int left[100000];
+int right[100000];
+
+    int l=0,r=n-1;
+    left[0]=0;
+    right[n-1]=n-1;
+    for(int i=1;i<n;i++){
+        if(a[i]>a[i-1])
+            l=i;
+        left[i]=l;
+    }
+    for(int i=n-2;i>=0;i--){
+        if(a[i]>a[i+1])
+            r=i;
+        right[i]=r;
+    }
+
+    vector<bool>v;    
+    for(int i=0;i<queries.size();i++){
+        int l=queries[i].first;
+        int r=queries[i].second;
+        if(right[l]>=left[r]){
+            v.push_back(true);
+        }else v.push_back(false);
+    }
+    return v;
+}
