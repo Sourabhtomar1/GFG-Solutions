@@ -1,0 +1,31 @@
+void subarraySum(int arr[], int n, int s){
+    
+    // Your code here
+    int st=0,i=1,sum=0;
+    sum+=arr[0];
+    int f=0;
+    if(s==sum){
+        cout<<1<<" "<<1;
+        f=1;
+    }
+    while(i<n){
+        sum+=arr[i];
+        if(sum==s){
+            f=1;
+            cout<<st+1<<" "<<i+1;
+            break;
+        }
+        while(sum>s&&st<i){
+            sum-=arr[st++];
+            if(sum==s){
+                f=1;
+                cout<<st+1<<" "<<i+1;
+                break;
+            }
+        }
+        i++;
+        if(f)break;
+        
+    }if(f==0)
+    cout<<-1;
+}
